@@ -15,5 +15,13 @@ script = ExtResource("2_pepyb")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=963529623]
 shape = SubResource("RectangleShape2D_rey4t")
 
+[node name="Screen" type="ColorRect" parent="." unique_id=1805995765]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 2.0
+color = Color(0.19215687, 0.7176471, 0.6431373, 1)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_mouse_exited"]
