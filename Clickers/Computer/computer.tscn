@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dygktvrk0wt77"]
 
-[ext_resource type="Texture2D" uid="uid://3ca7spxk4kho" path="res://Computer/computer.png" id="1_rey4t"]
-[ext_resource type="Script" uid="uid://gi2p7lfmq7u" path="res://Computer/computer.gd" id="2_pepyb"]
+[ext_resource type="Texture2D" uid="uid://3ca7spxk4kho" path="res://Clickers/Computer/computer.png" id="1_rey4t"]
+[ext_resource type="Script" uid="uid://gi2p7lfmq7u" path="res://Clickers/Computer/computer.gd" id="2_pepyb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rey4t"]
 size = Vector2(14, 14)

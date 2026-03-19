@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dsqft3h2ibodi"]
 
-[ext_resource type="PackedScene" uid="uid://dygktvrk0wt77" path="res://Computer/computer.tscn" id="1_2w1kt"]
+[ext_resource type="PackedScene" uid="uid://dygktvrk0wt77" path="res://Clickers/Computer/computer.tscn" id="1_2w1kt"]
 
 [node name="Main" type="Node2D" unique_id=1578416008]
 
