@@ -18,6 +18,14 @@ config/name="NetClicker"
 run/main_scene="uid://dsqft3h2ibodi"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
+[autoload]
+
+SignalBus="*uid://dsvn55gkbg4ur"
+
+[global_group]
+
+Clickers=""
+
 [input]
 
 left_click={

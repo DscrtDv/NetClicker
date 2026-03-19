@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rey4t"]
 size = Vector2(14, 14)
 
-[node name="Computer" type="Node2D" unique_id=2088399027]
+[node name="Computer" type="Node2D" unique_id=2088399027 groups=["Clickers"]]
 script = ExtResource("2_pepyb")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=200707715]

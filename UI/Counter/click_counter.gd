@@ -1,19 +1,19 @@
 extends Node2D
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+@onready var counter_label : Label 	= $CounterLabel
+@onready var timer : Timer 			= $Timer
+var total_bits : int				= 0
+var bits_ps : int 					= 0
 
 func _ready() -> void:
-	counter_label.text = "%015d" % clicks
+	update_counter()
+	timer.wait_time = 1.0
+	timer.start()
 
-var clicks: int = 0
+func update_counter() -> void:
+	counter_label.text = "%015d" % total_bits
 
-@onready var counter_label: Label = $CounterLabel
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton \
-	and event.button_index == MOUSE_BUTTON_LEFT \
-	and event.pressed:
-		clicks += 1
-	counter_label.text = "%015d" % clicks
+func _on_timer_timeout() -> void:
+	if (bits_ps > 0):
+		total_bits += bits_ps
+		update_counter()

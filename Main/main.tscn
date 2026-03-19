@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://dsqft3h2ibodi"]
 
 [ext_resource type="PackedScene" uid="uid://dygktvrk0wt77" path="res://Clickers/Computer/computer.tscn" id="1_2w1kt"]
+[ext_resource type="Script" uid="uid://6kyxv2o1dvs5" path="res://Main/main.gd" id="1_qvhan"]
+[ext_resource type="PackedScene" uid="uid://cmymnh1b10lkv" path="res://UI/Counter/click_counter.tscn" id="2_2w1kt"]
 
 [node name="Main" type="Node2D" unique_id=1578416008]
+script = ExtResource("1_qvhan")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1060155789]
 position = Vector2(578, 323)
@@ -10,3 +13,6 @@ zoom = Vector2(5, 5)
 
 [node name="Computer" parent="." unique_id=2088399027 instance=ExtResource("1_2w1kt")]
 position = Vector2(579, 323)
+
+[node name="Counter" parent="." unique_id=1342311751 instance=ExtResource("2_2w1kt")]
+position = Vector2(476, 272)
