@@ -1,4 +1,5 @@
-extends Sprite2D
+extends Clicker
+class_name Computer
 
 @onready var screen     := $Screen
 
