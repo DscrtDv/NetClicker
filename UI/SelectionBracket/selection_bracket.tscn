@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://eq5qe8h2jjlw"]
+
+[ext_resource type="Script" uid="uid://dt1f0gcu83tpc" path="res://UI/SelectionBracket/selection_bracket.gd" id="1_33v3a"]
+
+[node name="SelectionBracket" type="Node2D" unique_id=886589189]
+rotation = 0.0012421173
+script = ExtResource("1_33v3a")
+thickness = 1.2

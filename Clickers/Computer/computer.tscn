@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://3ca7spxk4kho" path="res://Clickers/Computer/computer.png" id="1_rey4t"]
 [ext_resource type="Script" uid="uid://gi2p7lfmq7u" path="res://Clickers/Computer/computer.gd" id="2_pepyb"]
+[ext_resource type="Script" uid="uid://ygteul6sy1v" path="res://Clickers/Computer/draw_circle.gd" id="3_k4hgw"]
+[ext_resource type="PackedScene" uid="uid://eq5qe8h2jjlw" path="res://UI/SelectionBracket/selection_bracket.tscn" id="4_o2v8j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rey4t"]
 size = Vector2(14, 14)
@@ -9,15 +11,18 @@ size = Vector2(14, 14)
 [node name="Computer" type="Node2D" unique_id=2088399027 groups=["Clickers"]]
 script = ExtResource("2_pepyb")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=200707715]
+[node name="DetailView" type="Node2D" parent="." unique_id=1456602839]
+visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=963529623]
+[node name="Area2D" type="Area2D" parent="DetailView" unique_id=200707715]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetailView/Area2D" unique_id=963529623]
 shape = SubResource("RectangleShape2D_rey4t")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1444262149]
+[node name="Sprite2D" type="Sprite2D" parent="DetailView" unique_id=1444262149]
 texture = ExtResource("1_rey4t")
 
-[node name="Screen" type="ColorRect" parent="." unique_id=1805995765]
+[node name="Screen" type="ColorRect" parent="DetailView" unique_id=1805995765]
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
@@ -26,5 +31,12 @@ rotation = -0.015260343
 mouse_filter = 2
 color = Color(0.19215687, 0.7176471, 0.6431373, 1)
 
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_mouse_exited"]
+[node name="ProxyView" type="Node2D" parent="." unique_id=509203933]
+
+[node name="Polygon2D" type="Polygon2D" parent="ProxyView" unique_id=1258429079]
+script = ExtResource("3_k4hgw")
+
+[node name="SelectionBracket" parent="." unique_id=886589189 instance=ExtResource("4_o2v8j")]
+
+[connection signal="mouse_entered" from="DetailView/Area2D" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DetailView/Area2D" to="." method="_on_mouse_exited"]

@@ -1,4 +1,4 @@
-extends Node2D
+extends LODObject
 class_name Clicker 
 
 signal bits_updated(bit_ps : int, is_boosted : bool)
@@ -9,6 +9,7 @@ signal bits_updated(bit_ps : int, is_boosted : bool)
 @export var is_boosted : bool        = false
 
 func _ready() -> void:
+    super._ready()
     add_to_group("Clickers")
 
 func get_bit_ps() -> int:
