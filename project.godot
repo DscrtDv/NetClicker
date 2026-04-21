@@ -21,6 +21,8 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 [autoload]
 
 SignalBus="*uid://dsvn55gkbg4ur"
+GameColors="*res://Autoload/game_colors.gd"
+NetworkManager="*res://Autoload/network_manager.gd"
 
 [global_group]
 

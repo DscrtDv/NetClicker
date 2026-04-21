@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bottombar00001"]
+
+[ext_resource type="Script" path="res://UI/HUD/BottomBar/bottom_bar.gd" id="1_bar"]
+[ext_resource type="PackedScene" path="res://UI/HUD/BottomBar/hud_toggle.tscn" id="2_toggle"]
+
+[node name="BottomBar" type="HBoxContainer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -42.0
+offset_right = 160.0
+offset_bottom = -10.0
+grow_vertical = 0
+theme_override_constants/separation = 4
+script = ExtResource("1_bar")
+
+[node name="TipsToggle" parent="." instance=ExtResource("2_toggle")]
+label_text = "TIPS"
+initial_state = true
+
+[node name="PtrToggle" parent="." instance=ExtResource("2_toggle")]
+label_text = "PTR"
+initial_state = true
+

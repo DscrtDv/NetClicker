@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://computerptr001"]
+
+[ext_resource type="Script" path="res://UI/HUD/ComputerPointer/computer_pointer.gd" id="1_ptr"]
+
+[node name="ComputerPointer" type="Node2D"]
+script = ExtResource("1_ptr")

@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://tooltip000001"]
+
+[ext_resource type="Script" path="res://UI/HUD/Tooltip/node_tooltip.gd" id="1_tooltip"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.04, 0.04, 0.04, 0.70)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.25, 0.25, 0.90)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="NodeTooltip" type="PanelContainer"]
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_tooltip")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 13
+text = "NODE"
+
+[node name="Separator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.30, 0.30, 0.35, 0.80)
+
+[node name="Grid" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+columns = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 4
+
+[node name="NetworkKey" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.55, 0.55, 0.65, 1.0)
+theme_override_font_sizes/font_size = 9
+text = "NETWORK"
+
+[node name="NetworkValue" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 9
+text = "—"
+
+[node name="StateKey" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.55, 0.55, 0.65, 1.0)
+theme_override_font_sizes/font_size = 9
+text = "STATE"
+
+[node name="StateValue" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 9
+text = "OFF"
+
+[node name="BitsKey" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.55, 0.55, 0.65, 1.0)
+theme_override_font_sizes/font_size = 9
+text = "BITS/S"
+
+[node name="BitsValue" type="Label" parent="MarginContainer/VBoxContainer/Grid"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 9
+text = "000 000"

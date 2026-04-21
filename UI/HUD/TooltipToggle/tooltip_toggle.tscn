@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://dm8u74kuf2sk1"]
+
+[ext_resource type="Script" uid="uid://draqgg51jq7sd" path="res://UI/HUD/TooltipToggle/tooltip_toggle.gd" id="1_ttoggle"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.04, 0.04, 0.04, 0.7)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.25, 0.25, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="TooltipToggle" type="PanelContainer" unique_id=492538558]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -42.0
+offset_right = 65.0
+offset_bottom = -10.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_ttoggle")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1416424899]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=624259364]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TipsLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=325516849]
+modulate = Color(0.55, 0.55, 0.65, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "TIPS"
+vertical_alignment = 1
+
+[node name="StateLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=2090632394]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "●"
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

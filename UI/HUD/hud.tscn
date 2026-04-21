@@ -1,7 +1,26 @@
 [gd_scene format=3 uid="uid://dg7pa12lqudwx"]
 
 [ext_resource type="PackedScene" uid="uid://cmymnh1b10lkv" path="res://UI/HUD/Counter/click_counter.tscn" id="1_counter"]
+[ext_resource type="PackedScene" path="res://UI/HUD/Tooltip/node_tooltip.tscn" id="2_tooltip"]
+[ext_resource type="PackedScene" path="res://UI/HUD/BottomBar/bottom_bar.tscn" id="3_bar"]
+[ext_resource type="PackedScene" path="res://UI/HUD/ComputerPointer/computer_pointer.tscn" id="4_ptr"]
+[ext_resource type="PackedScene" path="res://UI/HUD/Shop/shop.tscn" id="5_shop"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1293283919]
 
 [node name="Counter" parent="." unique_id=704091606 instance=ExtResource("1_counter")]
+
+[node name="NetworkCounter" parent="." unique_id=704091607 instance=ExtResource("1_counter")]
+is_main = false
+offset_left = 220.0
+offset_top = 10.0
+offset_right = 420.0
+offset_bottom = 62.0
+
+[node name="NodeTooltip" parent="." instance=ExtResource("2_tooltip")]
+
+[node name="BottomBar" parent="." instance=ExtResource("3_bar")]
+
+[node name="ComputerPointer" parent="." instance=ExtResource("4_ptr")]
+
+[node name="Shop" parent="." instance=ExtResource("5_shop")]

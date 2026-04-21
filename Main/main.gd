@@ -2,42 +2,93 @@ extends Node2D
 
 @onready var click_counter : PanelContainer = $HUD/Counter
 
-var total_bits : int = 0
-var main_bits_ps : int = 0
+var _placement_type : String = ""
+var _placement_cost : int    = 0
+var _ghost          : Node2D = null
+
+const _GHOST_SCENE    := preload("res://UI/Placement/placement_ghost.tscn")
+const _ENTITY_SCENES  := {
+    "Computer": preload("res://Clickers/Computer/computer.tscn")
+}
+
+var _placement_min_sep : float = 32.0
+
+const _CONN_LINE_SCENE := preload("res://UI/HUD/ConnectionLine/connection_line.tscn")
 
 func _enter_tree() -> void:
-    SignalBus.clicker_spawned.connect(_on_clicker_spawned)
+    SignalBus.entity_purchase_requested.connect(_on_entity_purchase_requested)
 
+func _ready() -> void:
+    var conn_line      := _CONN_LINE_SCENE.instantiate()
+    conn_line.z_index   = -1
+    add_child(conn_line)
 
-func recalculate_bits() -> void:
-    main_bits_ps = 0
-    var all_clickers = get_tree().get_nodes_in_group("Clickers")
-    
-    for clicker in all_clickers:
-        print("[!]Checking clicker: ", clicker.clicker_type)
-        if clicker is Computer and clicker.powered:
-            main_bits_ps += clicker.get_bit_ps()
-            
-    click_counter.bits_ps = main_bits_ps
-    print("[!] Total bits_ps recalculated: ", main_bits_ps)
+func _process(_delta: float) -> void:
+    if _ghost:
+        _ghost.global_position = get_global_mouse_position()
 
-func _on_bits_updated(bit_ps : int, is_boosted : bool) -> void:
-    recalculate_bits()
+func _unhandled_input(event: InputEvent) -> void:
+    if _ghost == null:
+        return
+    if event is InputEventMouseButton and event.pressed:
+        match event.button_index:
+            MOUSE_BUTTON_LEFT:
+                _confirm_placement()
+                get_viewport().set_input_as_handled()
+            MOUSE_BUTTON_RIGHT:
+                _cancel_placement()
+                get_viewport().set_input_as_handled()
+    elif event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+        _cancel_placement()
+        get_viewport().set_input_as_handled()
 
-func _on_computer_on(bit_ps : int) -> void:
-    main_bits_ps += bit_ps
-    click_counter.bits_ps = main_bits_ps
-    print("[!]Main bits_ps updated: ", main_bits_ps)
+func _on_entity_purchase_requested(clicker_type: String, cost: int) -> void:
+    if _ghost != null or click_counter.total_bits < cost:
+        return
+    if _ENTITY_SCENES.has(clicker_type):
+        var temp := (_ENTITY_SCENES[clicker_type] as PackedScene).instantiate()
+        _placement_min_sep = temp.min_separation
+        temp.free()
+    click_counter.total_bits -= cost
+    click_counter.update_counter()
+    _placement_type = clicker_type
+    _placement_cost = cost
+    _ghost = _GHOST_SCENE.instantiate()
+    _ghost.setup(clicker_type)
+    add_child(_ghost)
+    _ghost.global_position = get_global_mouse_position()
+    SignalBus.placement_started.emit(clicker_type)
 
-func _on_computer_off(bit_ps : int) -> void:
-    print("[!]Computer off with bit_ps: ", bit_ps)
-    main_bits_ps -= bit_ps
-    click_counter.bits_ps = main_bits_ps
+func _confirm_placement() -> void:
+    var pos := _ghost.global_position
+    if _is_placement_overlapping(pos):
+        return
+    _ghost.queue_free()
+    _ghost = null
+    _spawn_entity(_placement_type, pos)
+    _placement_type = ""
+    _placement_cost = 0
+    SignalBus.placement_ended.emit()
 
-func _on_clicker_spawned(clicker : Clicker) -> void:
-    print("[!]Clicker spawned: ", clicker.clicker_type)
-    if (clicker.clicker_type == "Computer"):
-        clicker.computer_on.connect(_on_computer_on)
-        clicker.computer_off.connect(_on_computer_off)
-        clicker.bits_updated.connect(_on_bits_updated)
-        print("[!]Computer connected to Main")
+func _is_placement_overlapping(pos: Vector2) -> bool:
+    for node in get_tree().get_nodes_in_group("Clickers"):
+        if pos.distance_to(node.global_position) < _placement_min_sep:
+            return true
+    return false
+
+func _cancel_placement() -> void:
+    click_counter.total_bits += _placement_cost
+    click_counter.update_counter()
+    _ghost.queue_free()
+    _ghost = null
+    _placement_type = ""
+    _placement_cost = 0
+    SignalBus.placement_ended.emit()
+
+func _spawn_entity(clicker_type: String, pos: Vector2) -> void:
+    if not _ENTITY_SCENES.has(clicker_type):
+        return
+    var entity := (_ENTITY_SCENES[clicker_type] as PackedScene).instantiate()
+    add_child(entity)
+    entity.global_position = pos
+

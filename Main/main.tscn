@@ -2,17 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://dygktvrk0wt77" path="res://Clickers/Computer/computer.tscn" id="1_2w1kt"]
 [ext_resource type="Script" uid="uid://6kyxv2o1dvs5" path="res://Main/main.gd" id="1_qvhan"]
-[ext_resource type="PackedScene" path="res://UI/HUD/hud.tscn" id="2_hud"]
+[ext_resource type="PackedScene" uid="uid://dg7pa12lqudwx" path="res://UI/HUD/hud.tscn" id="2_hud"]
 [ext_resource type="PackedScene" uid="uid://bky7o4xomln2s" path="res://Main/Camera/camera.tscn" id="4_eunhr"]
-[ext_resource type="PackedScene" path="res://Main/Background/background.tscn" id="5_bg"]
+[ext_resource type="PackedScene" uid="uid://bxnetbg00001" path="res://Main/Background/background.tscn" id="5_bg"]
 
 [node name="Main" type="Node2D" unique_id=1578416008]
 script = ExtResource("1_qvhan")
 
-[node name="Background" parent="." instance=ExtResource("5_bg")]
+[node name="Background" parent="." unique_id=57563576 instance=ExtResource("5_bg")]
 
 [node name="Computer" parent="." unique_id=2088399027 instance=ExtResource("1_2w1kt")]
-position = Vector2(579, 323)
+is_origin = true
 
 [node name="HUD" parent="." unique_id=2133900864 instance=ExtResource("2_hud")]
 

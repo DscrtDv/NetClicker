@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://shop00000001"]
+
+[ext_resource type="Script" uid="uid://mt67ei2rkktt" path="res://UI/HUD/Shop/shop.gd" id="1_shop"]
+[ext_resource type="PackedScene" uid="uid://c8nga53r7u7yy" path="res://UI/HUD/Shop/SpawnerShop/spawner_shop.tscn" id="2_spawner"]
+[ext_resource type="PackedScene" uid="uid://dav8ipwrqn80k" path="res://UI/HUD/BottomBar/hud_toggle.tscn" id="3_toggle"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sidebar"]
+bg_color = Color(0.04, 0.04, 0.05, 0.94)
+border_width_left = 3
+border_color = Color(0.25, 0.25, 0.25, 0.9)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab"]
+bg_color = Color(0.04, 0.04, 0.04, 0.88)
+border_width_left = 3
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.25, 0.25, 0.9)
+corner_radius_top_left = 6
+corner_radius_bottom_left = 6
+
+[node name="Shop" type="Control" unique_id=749809890]
+layout_mode = 3
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -36.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_shop")
+
+[node name="Sidebar" type="PanelContainer" parent="." unique_id=1597883220]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_right = 256.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sidebar")
+
+[node name="Margin" type="MarginContainer" parent="Sidebar" unique_id=8539128]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Sidebar/Margin" unique_id=1453961505]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HeaderLabel" type="Label" parent="Sidebar/Margin/VBox" unique_id=88852217]
+modulate = Color(0.55, 0.55, 0.65, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "SPAWNER"
+
+[node name="Separator" type="HSeparator" parent="Sidebar/Margin/VBox" unique_id=1715326100]
+modulate = Color(0.3, 0.3, 0.35, 0.8)
+layout_mode = 2
+
+[node name="SpawnerShop" parent="Sidebar/Margin/VBox" unique_id=1454025878 instance=ExtResource("2_spawner")]
+
+[node name="Tab" type="PanelContainer" parent="." unique_id=879632769]
+layout_mode = 1
+offset_left = -7.0
+offset_top = 10.0
+offset_right = 37.0
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tab")
+
+[node name="Margin" type="MarginContainer" parent="Tab" unique_id=535532259]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="Tab/Margin" unique_id=263411279]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "SHOP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DisconnectToggle" parent="." instance=ExtResource("3_toggle")]
+layout_mode = 1
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+offset_left = -126.0
+offset_top = -48.0
+offset_right = -55.0
+offset_bottom = -10.0
+label_text = "DIS"
+initial_state = false
+
+[node name="ConnectToggle" parent="." unique_id=1911640199 instance=ExtResource("3_toggle")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -48.0
+offset_right = 20.0
+offset_bottom = -10.0
+grow_vertical = 0
+label_text = "CON"
+initial_state = false
+
+[connection signal="gui_input" from="Tab" to="." method="_on_tab_gui_input"]
+[connection signal="mouse_entered" from="Tab" to="." method="_on_tab_mouse_entered"]
+[connection signal="mouse_exited" from="Tab" to="." method="_on_tab_mouse_exited"]
