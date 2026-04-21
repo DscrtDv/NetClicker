@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bxnetbg00001"]
+
+[ext_resource type="Script" path="res://Main/Background/background.gd" id="1_bg"]
+
+[node name="Background" type="Node2D"]
+z_index = -10
+script = ExtResource("1_bg")

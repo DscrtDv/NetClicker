@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var click_counter : Node2D = $Counter
+@onready var click_counter : PanelContainer = $HUD/Counter
 
 var total_bits : int = 0
 var main_bits_ps : int = 0

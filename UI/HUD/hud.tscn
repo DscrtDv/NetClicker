@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dg7pa12lqudwx"]
+
+[ext_resource type="PackedScene" uid="uid://cmymnh1b10lkv" path="res://UI/HUD/Counter/click_counter.tscn" id="1_counter"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1293283919]
+
+[node name="Counter" parent="." unique_id=704091606 instance=ExtResource("1_counter")]

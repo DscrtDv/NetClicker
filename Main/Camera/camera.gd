@@ -1,9 +1,9 @@
 extends Camera2D
 
-const ZOOM_STEP := 0.1
+const ZOOM_STEP := 0.05
 const ZOOM_MIN := Vector2(0.5, 0.5)
 const ZOOM_MAX := Vector2(3.0, 3.0)
-const LOD_THRESHOLD := 0.85
+const LOD_THRESHOLD := 1.2
 
 var _dragging := false
 

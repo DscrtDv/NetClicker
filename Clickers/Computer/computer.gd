@@ -17,8 +17,8 @@ var deltaPos : Vector2  = Vector2.ZERO
 var screen_on_color : Color = Color(0.192, 0.718, 0.643)
 var screen_off_color : Color = Color(0.2, 0.2, 0.2) # Dark gray
 
-var hover_scale := Vector2(1.05, 1.05)
-var normal_scale := Vector2(1.0, 1.0)
+var hover_modulate := Color(1.3, 1.3, 1.3)
+var normal_modulate := Color(1.0, 1.0, 1.0)
 
 func _ready() -> void:
 	super._ready()
@@ -68,7 +68,7 @@ func _on_mouse_entered() -> void:
 	if powered:
 		boost = 2
 		enable_boost()
-	create_tween().tween_property(self, "scale", hover_scale, 0.15)
+	create_tween().tween_property(self, "modulate", hover_modulate, 0.15)
 
 func _on_mouse_exited() -> void:
 	if not grabbing:
@@ -77,4 +77,4 @@ func _on_mouse_exited() -> void:
 		boost = 1
 		if is_boosted:
 			disable_boost()
-		create_tween().tween_property(self, "scale", normal_scale, 0.15)
+		create_tween().tween_property(self, "modulate", normal_modulate, 0.15)

@@ -14,14 +14,19 @@ var size := Vector2(20, 20):
 
 func on_hover() -> void:
 	visible = true
+	modulate.a = 0.45
 	create_tween().tween_property(self, "size", hover_size, 0.1)
 
 func on_grab() -> void:
-	create_tween().tween_property(self, "size", grab_size, 0.08)
+	var tw := create_tween()
+	tw.tween_property(self, "modulate:a", 1.0, 0.08)
+	tw.parallel().tween_property(self, "size", grab_size, 0.08)
 
 func on_release(is_hovering: bool) -> void:
 	if is_hovering:
-		create_tween().tween_property(self, "size", hover_size, 0.1)
+		var tw := create_tween()
+		tw.tween_property(self, "modulate:a", 0.45, 0.1)
+		tw.parallel().tween_property(self, "size", hover_size, 0.1)
 	else:
 		visible = false
 
