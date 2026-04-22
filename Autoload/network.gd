@@ -1,9 +1,10 @@
 class_name Network
 extends RefCounted
 
-var members     : Array = []   # Array[Clicker]
-var banked_bits : float = 0.0
-var is_main     : bool  = false
+var members      : Array = []   # Array[Clicker]
+var banked_bits  : float = 0.0
+var is_main      : bool  = false
+var display_name : String = ""
 
 func get_bps() -> int:
 	var total := 0
@@ -20,8 +21,8 @@ func get_size() -> int:
 # ── Pattern detection ──────────────────────────────────────────────────────
 
 func get_pattern() -> String:
-	if is_mesh(): return "mesh"
-	if is_star():  return "star"
+	# if is_mesh(): return "mesh"
+	# if is_star():  return "star"
 	if is_ring():  return "ring"
 	return "none"
 

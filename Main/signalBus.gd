@@ -26,3 +26,5 @@ var max_network_size    : int    = 5
 var connect_mode_enabled   : bool = false
 var disconnect_mode_enabled: bool = false
 var connection_source      : Node = null
+
+var outlined_network = null  # Network — set by main counter hover/pin

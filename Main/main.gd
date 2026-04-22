@@ -13,7 +13,7 @@ const _ENTITY_SCENES  := {
 
 var _placement_min_sep : float = 32.0
 
-const _CONN_LINE_SCENE := preload("res://UI/HUD/ConnectionLine/connection_line.tscn")
+const _CONN_LINE_SCENE := preload("res://UI/HUD/ConnectionLine/network_overlay.tscn")
 
 func _enter_tree() -> void:
     SignalBus.entity_purchase_requested.connect(_on_entity_purchase_requested)
@@ -91,4 +91,5 @@ func _spawn_entity(clicker_type: String, pos: Vector2) -> void:
     var entity := (_ENTITY_SCENES[clicker_type] as PackedScene).instantiate()
     add_child(entity)
     entity.global_position = pos
+    EventLog.log("+", "New %s added to the grid." % clicker_type)
 

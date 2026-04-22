@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://mt67ei2rkktt" path="res://UI/HUD/Shop/shop.gd" id="1_shop"]
 [ext_resource type="PackedScene" uid="uid://c8nga53r7u7yy" path="res://UI/HUD/Shop/SpawnerShop/spawner_shop.tscn" id="2_spawner"]
-[ext_resource type="PackedScene" uid="uid://dav8ipwrqn80k" path="res://UI/HUD/BottomBar/hud_toggle.tscn" id="3_toggle"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sidebar"]
 bg_color = Color(0.04, 0.04, 0.05, 0.94)
@@ -82,31 +81,6 @@ theme_override_font_sizes/font_size = 12
 text = "SHOP"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="DisconnectToggle" parent="." instance=ExtResource("3_toggle")]
-layout_mode = 1
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-offset_left = -126.0
-offset_top = -48.0
-offset_right = -55.0
-offset_bottom = -10.0
-label_text = "DIS"
-initial_state = false
-
-[node name="ConnectToggle" parent="." unique_id=1911640199 instance=ExtResource("3_toggle")]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -51.0
-offset_top = -48.0
-offset_right = 20.0
-offset_bottom = -10.0
-grow_vertical = 0
-label_text = "CON"
-initial_state = false
 
 [connection signal="gui_input" from="Tab" to="." method="_on_tab_gui_input"]
 [connection signal="mouse_entered" from="Tab" to="." method="_on_tab_mouse_entered"]

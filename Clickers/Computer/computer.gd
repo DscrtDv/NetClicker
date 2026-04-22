@@ -43,7 +43,7 @@ func _ready() -> void:
 	SignalBus.clicker_spawned.emit(self)
 	SignalBus.connection_source_selected.connect(_on_connection_source_selected)
 	SignalBus.connection_cancelled.connect(_on_connection_cleared)
-	SignalBus.connection_formed.connect(_on_connection_cleared)
+	SignalBus.connection_formed.connect(_on_connection_formed)
 
 func _process(_delta: float) -> void:
 	deltaPos = mousePos - get_global_mouse_position()
@@ -86,10 +86,7 @@ func _input(_event: InputEvent) -> void:
 				SignalBus.tooltip_hide.emit()
 
 	if Input.is_action_just_pressed("right_click") and mouse_over:
-		# In connect mode, right-click cancels source selection
-		if SignalBus.connect_mode_enabled and SignalBus.connection_source != null:
-			SignalBus.connection_source = null
-			SignalBus.connection_cancelled.emit()
+		if SignalBus.connect_mode_enabled or SignalBus.disconnect_mode_enabled:
 			return
 		powered = not powered
 		if powered:
@@ -211,6 +208,10 @@ func _on_mouse_exited() -> void:
 func _on_connection_source_selected(src: Node) -> void:
 	if src == self:
 		create_tween().tween_property(self, "modulate", TINT_SOURCE, 0.15)
+
+func _on_connection_formed(_a = null, _b = null) -> void:
+	_on_connection_cleared()
+	_refresh_screen_color()
 
 func _on_connection_cleared(_a = null, _b = null) -> void:
 	if not mouse_over:

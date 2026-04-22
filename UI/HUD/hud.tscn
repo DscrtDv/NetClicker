@@ -2,9 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cmymnh1b10lkv" path="res://UI/HUD/Counter/click_counter.tscn" id="1_counter"]
 [ext_resource type="PackedScene" path="res://UI/HUD/Tooltip/node_tooltip.tscn" id="2_tooltip"]
-[ext_resource type="PackedScene" path="res://UI/HUD/BottomBar/bottom_bar.tscn" id="3_bar"]
+[ext_resource type="PackedScene" path="res://UI/HUD/ToolBar/toolbar.tscn" id="3_toolbar"]
 [ext_resource type="PackedScene" path="res://UI/HUD/ComputerPointer/computer_pointer.tscn" id="4_ptr"]
 [ext_resource type="PackedScene" path="res://UI/HUD/Shop/shop.tscn" id="5_shop"]
+[ext_resource type="PackedScene" path="res://UI/HUD/Terminal/terminal.tscn" id="6_terminal"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1293283919]
 
@@ -19,8 +20,10 @@ offset_bottom = 62.0
 
 [node name="NodeTooltip" parent="." instance=ExtResource("2_tooltip")]
 
-[node name="BottomBar" parent="." instance=ExtResource("3_bar")]
+[node name="ToolBar" parent="." instance=ExtResource("3_toolbar")]
 
 [node name="ComputerPointer" parent="." instance=ExtResource("4_ptr")]
 
 [node name="Shop" parent="." instance=ExtResource("5_shop")]
+
+[node name="Terminal" parent="." instance=ExtResource("6_terminal")]

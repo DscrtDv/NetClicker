@@ -59,8 +59,8 @@ func format_bits(n: int) -> String:
 
 func update_counter() -> void:
 	counter_label.text    = format_bits(total_bits)
-	bps_label.text        = "%s bits/s" % format_bits(bits_ps)
-	node_count_label.text = "%d nodes" % node_count
+	bps_label.text        = "%s bps" % format_bits(bits_ps)
+	node_count_label.text = "Node Count: %d" % node_count
 	if is_main:
 		SignalBus.total_bits = total_bits
 		SignalBus.bits_changed.emit(total_bits)
@@ -86,6 +86,8 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		_pinned = not _pinned
 		_set_border(BORDER_PINNED if _pinned else BORDER_DEFAULT)
+		if not _pinned:
+			SignalBus.outlined_network = null
 		get_viewport().set_input_as_handled()
 
 func _on_timer_timeout() -> void:
@@ -100,10 +102,13 @@ func _on_timer_timeout() -> void:
 func _on_mouse_entered() -> void:
 	if is_main:
 		_expand()
+		SignalBus.outlined_network = NetworkManager.get_main()
 
 func _on_mouse_exited() -> void:
-	if is_main and not _pinned:
-		_collapse()
+	if is_main:
+		if not _pinned:
+			_collapse()
+			SignalBus.outlined_network = null
 
 # --- Secondary counter ---
 
