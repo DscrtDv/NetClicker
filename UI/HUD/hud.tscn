@@ -1,29 +1,37 @@
 [gd_scene format=3 uid="uid://dg7pa12lqudwx"]
 
 [ext_resource type="PackedScene" uid="uid://cmymnh1b10lkv" path="res://UI/HUD/Counter/click_counter.tscn" id="1_counter"]
-[ext_resource type="PackedScene" path="res://UI/HUD/Tooltip/node_tooltip.tscn" id="2_tooltip"]
-[ext_resource type="PackedScene" path="res://UI/HUD/ToolBar/toolbar.tscn" id="3_toolbar"]
-[ext_resource type="PackedScene" path="res://UI/HUD/ComputerPointer/computer_pointer.tscn" id="4_ptr"]
-[ext_resource type="PackedScene" path="res://UI/HUD/Shop/shop.tscn" id="5_shop"]
-[ext_resource type="PackedScene" path="res://UI/HUD/Terminal/terminal.tscn" id="6_terminal"]
+[ext_resource type="PackedScene" uid="uid://dm8u74q60m77" path="res://UI/HUD/Tooltip/node_tooltip.tscn" id="2_tooltip"]
+[ext_resource type="PackedScene" uid="uid://toolbar00001" path="res://UI/HUD/ToolBar/toolbar.tscn" id="3_toolbar"]
+[ext_resource type="PackedScene" uid="uid://bg5lf7hfyjm3y" path="res://UI/HUD/ComputerPointer/computer_pointer.tscn" id="4_ptr"]
+[ext_resource type="PackedScene" uid="uid://shop00000001" path="res://UI/HUD/Shop/shop.tscn" id="5_shop"]
+[ext_resource type="PackedScene" uid="uid://dw445fllq7iyy" path="res://UI/HUD/Terminal/terminal.tscn" id="6_terminal"]
+[ext_resource type="PackedScene" uid="uid://floatwind001" path="res://UI/FloatingWindow/floating_window.tscn" id="7_fw"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1293283919]
 
 [node name="Counter" parent="." unique_id=704091606 instance=ExtResource("1_counter")]
 
 [node name="NetworkCounter" parent="." unique_id=704091607 instance=ExtResource("1_counter")]
-is_main = false
 offset_left = 220.0
-offset_top = 10.0
 offset_right = 420.0
-offset_bottom = 62.0
+is_main = false
 
-[node name="NodeTooltip" parent="." instance=ExtResource("2_tooltip")]
+[node name="NodeTooltip" parent="." unique_id=414166884 instance=ExtResource("2_tooltip")]
 
-[node name="ToolBar" parent="." instance=ExtResource("3_toolbar")]
+[node name="ToolBar" parent="." unique_id=1575440473 instance=ExtResource("3_toolbar")]
+anchors_preset = 2
+offset_left = 284.0
+offset_top = -34.0
+offset_right = 594.0
+offset_bottom = 0.0
 
-[node name="ComputerPointer" parent="." instance=ExtResource("4_ptr")]
+[node name="ComputerPointer" parent="." unique_id=1175986605 instance=ExtResource("4_ptr")]
 
-[node name="Shop" parent="." instance=ExtResource("5_shop")]
+[node name="Shop" parent="." unique_id=1806962364 instance=ExtResource("5_shop")]
 
-[node name="Terminal" parent="." instance=ExtResource("6_terminal")]
+[node name="Terminal" parent="." unique_id=1768919104 instance=ExtResource("6_terminal")]
+anchors_preset = 2
+
+[node name="TechTree" parent="." unique_id=1899000001 instance=ExtResource("7_fw")]
+title = "TECH TREE"

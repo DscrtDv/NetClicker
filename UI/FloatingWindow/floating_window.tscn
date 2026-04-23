@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://floatwind001"]
+
+[ext_resource type="Script" uid="uid://floatwgd0001" path="res://UI/FloatingWindow/floating_window.gd" id="1_fw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_window"]
+bg_color = Color(0.04, 0.04, 0.05, 0.94)
+border_width_left = 4
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.25, 0.25, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="FloatingWindow" type="Control" unique_id=1462373067]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fw")
+
+[node name="Window" type="PanelContainer" parent="." unique_id=973068828]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_window")
+
+[node name="Margin" type="MarginContainer" parent="Window" unique_id=556817475]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Window/Margin" unique_id=2098670533]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleBar" type="HBoxContainer" parent="Window/Margin/VBox" unique_id=14844888]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Window/Margin/VBox/TitleBar" unique_id=1253709515]
+modulate = Color(0.55, 0.55, 0.65, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "WINDOW"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Window/Margin/VBox/TitleBar" unique_id=1623273422]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseBtn" type="Button" parent="Window/Margin/VBox/TitleBar" unique_id=321618153]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "×"
+flat = true
+
+[node name="Separator" type="HSeparator" parent="Window/Margin/VBox" unique_id=2136040394]
+modulate = Color(0.3, 0.3, 0.35, 0.8)
+layout_mode = 2
+
+[node name="Content" type="MarginContainer" parent="Window/Margin/VBox" unique_id=1883735429]
+layout_mode = 2
+size_flags_vertical = 3

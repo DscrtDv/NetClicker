@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cq1y7xa5c10mo"]
+
+[ext_resource type="PackedScene" uid="uid://clkbase0tscn1" path="res://Clickers/clicker.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://353t3u7ewdha" path="res://Clickers/Switch/switch.gd" id="2_swch"]
+[ext_resource type="Script" path="res://Clickers/Switch/draw_square.gd" id="3_drsq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_switch"]
+size = Vector2(14, 7)
+
+[node name="Switch" unique_id=6216865 instance=ExtResource("1_base")]
+script = ExtResource("2_swch")
+
+[node name="PowerIndicator" parent="DetailView" index="0"]
+offset_top = -2.0
+offset_bottom = 1.0
+
+[node name="CollisionShape2D" parent="DetailView/Area2D" index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_switch")
+
+[node name="Polygon2D" parent="ProxyView" index="0"]
+script = ExtResource("3_drsq")

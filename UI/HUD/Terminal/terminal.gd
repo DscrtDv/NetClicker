@@ -1,7 +1,7 @@
 extends Control
 
 const TERMINAL_W     := 280.0
-const TAB_H          := 28.0
+const TAB_H          := 38.0
 const CONTENT_H      := 220.0
 const SLIDE_DURATION := 0.25
 const MAX_ENTRIES    := 50

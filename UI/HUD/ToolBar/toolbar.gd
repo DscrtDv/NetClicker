@@ -4,6 +4,8 @@ extends HBoxContainer
 @onready var ptr_toggle        : HudToggle = $PtrToggle
 @onready var connect_toggle    : HudToggle = $ConnectToggle
 @onready var disconnect_toggle : HudToggle = $DisconnectToggle
+@onready var tech_toggle       : HudToggle      = $TechToggle
+@onready var _tech_window      : FloatingWindow  = get_parent().get_node("TechTree")
 
 func _ready() -> void:
 	tips_toggle.toggled.connect(func(enabled: bool) -> void:
@@ -16,6 +18,8 @@ func _ready() -> void:
 	)
 	connect_toggle.toggled.connect(_on_connect_toggled)
 	disconnect_toggle.toggled.connect(_on_disconnect_toggled)
+	tech_toggle.toggled.connect(_on_tech_toggled)
+	_tech_window.closed.connect(func(): tech_toggle.set_state_silent(false))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
@@ -33,6 +37,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 			KEY_X:
 				disconnect_toggle.public_toggle()
+				get_viewport().set_input_as_handled()
+			KEY_T:
+				tech_toggle.public_toggle()
 				get_viewport().set_input_as_handled()
 
 func _clear_source() -> void:
@@ -55,3 +62,9 @@ func _on_disconnect_toggled(enabled: bool) -> void:
 		connect_toggle.set_state_silent(false)
 	_clear_source()
 	SignalBus.disconnect_mode_toggled.emit(enabled)
+
+func _on_tech_toggled(enabled: bool) -> void:
+	if enabled:
+		_tech_window.open()
+	else:
+		_tech_window.close()

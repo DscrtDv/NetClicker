@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://clkbase0tscn1"]
+
+[ext_resource type="Script" uid="uid://drvnhq6g2ie0" path="res://Clickers/clicker.gd" id="1_clkr"]
+[ext_resource type="PackedScene" uid="uid://eq5qe8h2jjlw" path="res://UI/SelectionBracket/selection_bracket.tscn" id="2_selb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
+size = Vector2(14, 14)
+
+[node name="Clicker" type="Node2D"]
+script = ExtResource("1_clkr")
+
+[node name="DetailView" type="Node2D" parent="."]
+
+[node name="PowerIndicator" type="ColorRect" parent="DetailView"]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 2.0
+mouse_filter = 2
+color = Color(0.19215687, 0.7176471, 0.6431373, 1)
+
+[node name="Area2D" type="Area2D" parent="DetailView"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetailView/Area2D"]
+shape = SubResource("RectangleShape2D_base")
+
+[node name="Sprite2D" type="Sprite2D" parent="DetailView"]
+
+[node name="ProxyView" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="ProxyView"]
+
+[node name="SelectionBracket" parent="." instance=ExtResource("2_selb")]
+
+[connection signal="mouse_entered" from="DetailView/Area2D" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DetailView/Area2D" to="." method="_on_mouse_exited"]

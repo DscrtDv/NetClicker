@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://terminal00001"]
+[gd_scene format=3 uid="uid://dw445fllq7iyy"]
 
-[ext_resource type="Script" path="res://UI/HUD/Terminal/terminal.gd" id="1_terminal"]
+[ext_resource type="Script" uid="uid://svox3hemyriv" path="res://UI/HUD/Terminal/terminal.gd" id="1_terminal"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab"]
 bg_color = Color(0.04, 0.04, 0.04, 0.88)
@@ -17,62 +17,62 @@ border_width_left = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.25, 0.25, 0.25, 0.9)
-corner_radius_bottom_left = 6
 corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
-[node name="Terminal" type="Control"]
+[node name="Terminal" type="Control" unique_id=505116401]
 clip_contents = true
 layout_mode = 3
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-anchor_right = 0.0
-offset_left = 0.0
+offset_top = -34.0
 offset_right = 280.0
-offset_top = -28.0
-offset_bottom = 0.0
+offset_bottom = 4.0
 grow_vertical = 0
 script = ExtResource("1_terminal")
 
-[node name="Tab" type="PanelContainer" parent="."]
+[node name="Tab" type="PanelContainer" parent="." unique_id=678475497]
 layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_top = 0.0
-offset_bottom = 28.0
+offset_bottom = 34.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tab")
 
-[node name="Margin" type="MarginContainer" parent="Tab"]
+[node name="Margin" type="MarginContainer" parent="Tab" unique_id=940869025]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 4
 
-[node name="Label" type="Label" parent="Tab/Margin"]
+[node name="Label" type="Label" parent="Tab/Margin" unique_id=1627611257]
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 14
 text = "TERMINAL"
-horizontal_alignment = 0
 vertical_alignment = 1
 
-[node name="Sidebar" type="PanelContainer" parent="."]
+[node name="Sidebar" type="PanelContainer" parent="." unique_id=1748064505]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 28.0
+offset_top = 34.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_sidebar")
 
-[node name="Margin" type="MarginContainer" parent="Sidebar"]
+[node name="Margin" type="MarginContainer" parent="Sidebar" unique_id=363640711]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Log" type="RichTextLabel" parent="Sidebar/Margin"]
+[node name="Log" type="RichTextLabel" parent="Sidebar/Margin" unique_id=1408492362]
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 13
 bbcode_enabled = true
 scroll_following = true
-theme_override_font_sizes/normal_font_size = 13
 
 [connection signal="gui_input" from="Tab" to="." method="_on_tab_gui_input"]
 [connection signal="mouse_entered" from="Tab" to="." method="_on_tab_mouse_entered"]

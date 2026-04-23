@@ -3,6 +3,7 @@ extends PanelContainer
 @onready var header_label  : Label = $MarginContainer/VBoxContainer/HeaderLabel
 @onready var network_value : Label = $MarginContainer/VBoxContainer/Grid/NetworkValue
 @onready var state_value   : Label = $MarginContainer/VBoxContainer/Grid/StateValue
+@onready var bits_key      : Label = $MarginContainer/VBoxContainer/Grid/BitsKey
 @onready var bits_value    : Label = $MarginContainer/VBoxContainer/Grid/BitsValue
 
 var _anchor : Node2D = null
@@ -27,7 +28,11 @@ func _on_tooltip_show(node_name: String, network: String, state: bool, bit_ps: i
 	network_value.text = network
 	state_value.text = "ON" if state else "OFF"
 	state_value.modulate = Color(0.20, 0.85, 0.60) if state else Color(0.85, 0.35, 0.30)
-	bits_value.text = _format_bits(bit_ps)
+	var show_bps := bit_ps > 0
+	bits_key.visible   = show_bps
+	bits_value.visible = show_bps
+	if show_bps:
+		bits_value.text = _format_bits(bit_ps)
 	_anchor = anchor
 	visible = true
 

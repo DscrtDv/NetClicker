@@ -11,6 +11,7 @@ var _base_price  : int   = 10
 var _price_scale : float = 1.15
 
 func _ready() -> void:
+	buy_btn.focus_mode = Control.FOCUS_NONE
 	if entity_scene:
 		var temp := entity_scene.instantiate()
 		temp.init_prices()

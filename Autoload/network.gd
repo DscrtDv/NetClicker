@@ -18,6 +18,13 @@ func get_bps() -> int:
 func get_size() -> int:
 	return members.size()
 
+func get_computer_count() -> int:
+	var count := 0
+	for m in members:
+		if (m as Clicker).bit_ps > 0:
+			count += 1
+	return count
+
 # ── Pattern detection ──────────────────────────────────────────────────────
 
 func get_pattern() -> String:

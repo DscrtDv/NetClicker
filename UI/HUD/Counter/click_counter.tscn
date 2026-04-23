@@ -49,19 +49,12 @@ theme_override_font_sizes/font_size = 22
 text = "BITS"
 vertical_alignment = 1
 
-[node name="NodeCountLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=112233445]
-modulate = Color(0.55, 0.55, 0.65, 1)
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Node Count: 0"
-
 [node name="BpsContainer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1737826705]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="BpsLabel" type="Label" parent="MarginContainer/VBoxContainer/BpsContainer" unique_id=952694654]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,6 +62,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 11
+
+[node name="CountsContainer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1122334455]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CountsInner" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CountsContainer" unique_id=1122334456]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="NodeCountLabel" type="Label" parent="MarginContainer/VBoxContainer/CountsContainer/CountsInner" unique_id=112233445]
+modulate = Color(0.55, 0.55, 0.65, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Node Count: 0"
+
+[node name="ComputerCountLabel" type="Label" parent="MarginContainer/VBoxContainer/CountsContainer/CountsInner" unique_id=112233446]
+modulate = Color(0.55, 0.55, 0.65, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Computers: 0 / 5"
 
 [node name="Timer" type="Timer" parent="." unique_id=492785664]
 

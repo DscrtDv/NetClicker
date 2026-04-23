@@ -1,8 +1,9 @@
 extends Node
 
-var _networks      : Array[Network] = []
-var _origin        : Node          = null
-var _pattern_cache : Dictionary    = {}  # net_key → last known pattern
+var _networks       : Array[Network] = []
+var _origin         : Node          = null
+var _pattern_cache  : Dictionary    = {}  # net_key → last known pattern
+var _name_cache : Dictionary = {}  # net_key → display_name
 
 func _ready() -> void:
 	SignalBus.clicker_spawned.connect(_on_clicker_spawned)
@@ -47,9 +48,10 @@ func rebuild() -> void:
 				continue
 			visited[clicker] = true
 			net.members.append(clicker)
-			for c in (clicker as Clicker).connections:
-				if not visited.has(c):
-					queue.append(c)
+			if not (clicker as Clicker).blocks_traversal():
+				for c in (clicker as Clicker).connections:
+					if not visited.has(c):
+						queue.append(c)
 		for m in net.members:
 			net.banked_bits += old_banked.get(m, 0.0)
 		_networks.append(net)
@@ -62,14 +64,32 @@ func rebuild() -> void:
 				net.is_main = true
 				break
 
-	# assign display names
-	var sub_idx := 0
+	# assign display names — stable across rebuilds via key cache
 	for net in _networks:
+		var key := _net_key(net)
 		if net.is_main:
 			net.display_name = "Main Network"
+		elif _name_cache.has(key):
+			net.display_name = _name_cache[key]
 		else:
-			sub_idx += 1
-			net.display_name = "Sub-Net %d" % sub_idx
+			net.display_name = "Sub-Net %s" % ("%04X" % (randi() % 0x10000))
+		_name_cache[key] = net.display_name
+
+	# prune cache entries for networks that no longer exist
+	var live_keys : Dictionary = {}
+	for net in _networks:
+		live_keys[_net_key(net)] = true
+	for key in _name_cache.keys():
+		if not live_keys.has(key):
+			_name_cache.erase(key)
+
+	# propagate names back to each clicker node for tooltip display
+	for net in _networks:
+		for m in net.members:
+			m.network_name = net.display_name
+
+	if SignalBus.outlined_network != null and not has_network(SignalBus.outlined_network):
+		SignalBus.outlined_network = get_main()
 
 	_fire_events(pre_node_is_main, pre_node_banked, pre_node_netname)
 

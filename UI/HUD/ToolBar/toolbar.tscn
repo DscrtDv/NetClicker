@@ -42,3 +42,12 @@ initial_state = false
 [node name="DisconnectToggle" parent="." instance=ExtResource("2_toggle")]
 label_text = "DIS"
 initial_state = false
+
+[node name="TechSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+custom_minimum_size = Vector2(2, 0)
+theme_override_styles/separator = SubResource("StyleBoxLine_sep")
+
+[node name="TechToggle" parent="." instance=ExtResource("2_toggle")]
+label_text = "TECH"
+initial_state = false

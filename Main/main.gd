@@ -8,7 +8,8 @@ var _ghost          : Node2D = null
 
 const _GHOST_SCENE    := preload("res://UI/Placement/placement_ghost.tscn")
 const _ENTITY_SCENES  := {
-    "Computer": preload("res://Clickers/Computer/computer.tscn")
+    "Computer": preload("res://Clickers/Computer/computer.tscn"),
+    "Switch":   preload("res://Clickers/Switch/switch.tscn"),
 }
 
 var _placement_min_sep : float = 32.0

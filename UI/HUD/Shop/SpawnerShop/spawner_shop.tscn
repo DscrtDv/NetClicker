@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://UI/HUD/Shop/SpawnerShop/shop_item.tscn" id="1_item"]
 [ext_resource type="PackedScene" uid="uid://dygktvrk0wt77" path="res://Clickers/Computer/computer.tscn" id="2_computer"]
+[ext_resource type="PackedScene" uid="uid://cq1y7xa5c10mo" path="res://Clickers/Switch/switch.tscn" id="3_switch"]
 
 [node name="SpawnerShop" type="VBoxContainer"]
 layout_mode = 2
@@ -10,3 +11,7 @@ theme_override_constants/separation = 6
 [node name="ComputerItem" parent="." instance=ExtResource("1_item")]
 clicker_type = "Computer"
 entity_scene = ExtResource("2_computer")
+
+[node name="SwitchItem" parent="." instance=ExtResource("1_item")]
+clicker_type = "Switch"
+entity_scene = ExtResource("3_switch")

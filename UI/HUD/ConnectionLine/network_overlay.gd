@@ -7,7 +7,34 @@ const BRACKET_CORNER := 20.0
 const BRACKET_WIDTH  := 2.0
 
 func _process(_delta: float) -> void:
+	if SignalBus.connect_mode_enabled or SignalBus.disconnect_mode_enabled:
+		SignalBus.hovered_network = null
+	else:
+		_update_line_hover()
 	queue_redraw()
+
+func _update_line_hover() -> void:
+	var zoom        := get_viewport().get_canvas_transform().get_scale().x
+	var threshold   := 8.0 / zoom
+	var mouse_world := get_viewport().get_canvas_transform().affine_inverse() \
+					   * get_viewport().get_mouse_position()
+	var best_dist := INF
+	var best_net  : Network = null
+	var checked   : Dictionary = {}
+	for node in get_tree().get_nodes_in_group("Clickers"):
+		var clicker := node as Clicker
+		for other in clicker.connections:
+			var id_a := clicker.get_instance_id()
+			var id_b := (other as Clicker).get_instance_id()
+			var key  := "%d_%d" % [mini(id_a, id_b), maxi(id_a, id_b)]
+			if checked.has(key):
+				continue
+			checked[key] = true
+			var dist := _point_to_seg(mouse_world, clicker.global_position, (other as Clicker).global_position)
+			if dist < threshold and dist < best_dist:
+				best_dist = dist
+				best_net  = NetworkManager.get_network_for(clicker)
+	SignalBus.hovered_network = best_net
 
 func _draw() -> void:
 	var zoom  := get_viewport().get_canvas_transform().get_scale().x
@@ -17,6 +44,9 @@ func _draw() -> void:
 	var outlined = SignalBus.outlined_network
 	if outlined != null and NetworkManager.has_network(outlined):
 		_draw_brackets(outlined, zoom)
+	var hovered = SignalBus.hovered_network
+	if hovered != null and hovered != outlined and NetworkManager.has_network(hovered):
+		_draw_brackets(hovered, zoom)
 
 	# Draw permanent connections — each pair once
 	var drawn : Dictionary = {}

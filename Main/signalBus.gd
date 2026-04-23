@@ -13,6 +13,7 @@ signal placement_ended()
 signal network_tick()
 signal connect_mode_toggled(enabled: bool)
 signal disconnect_mode_toggled(enabled: bool)
+signal tech_window_toggled(is_open: bool)
 signal connection_source_selected(clicker: Node)
 signal connection_cancelled()
 signal connection_formed(a: Node, b: Node)
@@ -28,3 +29,4 @@ var disconnect_mode_enabled: bool = false
 var connection_source      : Node = null
 
 var outlined_network = null  # Network — set by main counter hover/pin
+var hovered_network  = null  # Network — set by cursor proximity to a connection line

@@ -2,6 +2,7 @@ extends Node2D
 
 const _TEXTURES := {
 	"Computer": preload("res://Clickers/Computer/computer.png"),
+	"Switch":   preload("res://Clickers/Switch/switch.png"),
 }
 
 func setup(clicker_type: String) -> void:
