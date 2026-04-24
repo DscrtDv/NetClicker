@@ -14,6 +14,10 @@ signal network_tick()
 signal connect_mode_toggled(enabled: bool)
 signal disconnect_mode_toggled(enabled: bool)
 signal tech_window_toggled(is_open: bool)
+signal tech_unlocked(id: StringName)
+signal tech_purchase_requested(id: StringName, cost: int)
+signal tech_tooltip_show(data: TechData, anchor: Control)
+signal tech_tooltip_hide()
 signal connection_source_selected(clicker: Node)
 signal connection_cancelled()
 signal connection_formed(a: Node, b: Node)
@@ -30,3 +34,4 @@ var connection_source      : Node = null
 
 var outlined_network = null  # Network — set by main counter hover/pin
 var hovered_network  = null  # Network — set by cursor proximity to a connection line
+var unlocked_techs   : Array[StringName] = []

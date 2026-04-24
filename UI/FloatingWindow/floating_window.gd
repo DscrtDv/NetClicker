@@ -12,6 +12,7 @@ func _ready() -> void:
 	_title_label.text = title
 	_close_btn.focus_mode = Control.FOCUS_NONE
 	_close_btn.pressed.connect(close)
+	_close_btn.modulate = Color(0.85, 0.35, 0.30, 0.90)
 	visible = false
 
 func open() -> void:

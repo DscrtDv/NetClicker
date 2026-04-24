@@ -21,17 +21,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_fw")
 
 [node name="Window" type="PanelContainer" parent="." unique_id=973068828]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = 40.0
-offset_right = -40.0
-offset_bottom = -40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -580.0
+offset_top = -320.0
+offset_right = 580.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_window")
@@ -63,7 +66,8 @@ size_flags_horizontal = 3
 
 [node name="CloseBtn" type="Button" parent="Window/Margin/VBox/TitleBar" unique_id=321618153]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.85, 0.35, 0.3, 0.9)
+theme_override_font_sizes/font_size = 28
 text = "×"
 flat = true
 

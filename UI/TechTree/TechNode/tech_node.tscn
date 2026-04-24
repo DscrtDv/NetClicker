@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://technode0001"]
+
+[ext_resource type="Script" path="res://UI/TechTree/TechNode/tech_node.gd" id="1_tn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_locked"]
+bg_color = Color(0.05, 0.05, 0.07, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.30, 0.30, 0.36, 0.70)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_available"]
+bg_color = Color(0.04, 0.07, 0.08, 0.90)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.192, 0.718, 0.643, 0.90)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unlocked"]
+bg_color = Color(0.06, 0.06, 0.03, 0.90)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.00, 0.78, 0.20, 0.90)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="TechNode" type="Control"]
+custom_minimum_size = Vector2(80, 70)
+mouse_filter = 0
+script = ExtResource("1_tn")
+style_locked = SubResource("StyleBoxFlat_locked")
+style_available = SubResource("StyleBoxFlat_available")
+style_unlocked = SubResource("StyleBoxFlat_unlocked")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_locked")
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 3
+
+[node name="Icon" type="TextureRect" parent="Panel/Margin/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(22, 22)
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 6
+
+[node name="NameLabel" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+autowrap_mode = 1
+text = "TECH"
+
+[node name="PriceLabel" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+modulate = Color(0.55, 0.55, 0.65, 1.0)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+text = "0 b"

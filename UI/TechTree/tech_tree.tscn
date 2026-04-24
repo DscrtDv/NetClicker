@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://techtreescn1" inherits="res://UI/FloatingWindow/floating_window.tscn"]
-
-[ext_resource type="Script" uid="uid://techtreegdx1" path="res://UI/TechTree/tech_tree.gd" id="1_tt"]
-
-[node name="TechTree" script=ExtResource("1_tt")]
-title = "TECH TREE"

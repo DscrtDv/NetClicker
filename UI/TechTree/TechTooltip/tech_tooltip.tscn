@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://techtooltip01"]
+
+[ext_resource type="Script" path="res://UI/TechTree/TechTooltip/tech_tooltip.gd" id="1_tt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.04, 0.04, 0.04, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.25, 0.25, 0.90)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="TechTooltip" type="PanelContainer"]
+layout_mode = 0
+mouse_filter = 2
+custom_minimum_size = Vector2(200, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_tt")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 9
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="NameLabel" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 12
+text = "TECH NAME"
+
+[node name="Separator" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.30, 0.30, 0.35, 0.80)
+
+[node name="DescLabel" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.70, 0.70, 0.78, 1.0)
+theme_override_font_sizes/font_size = 9
+autowrap_mode = 3
+text = "Description goes here."
+
+[node name="Separator2" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.30, 0.30, 0.35, 0.80)
+
+[node name="Grid" type="GridContainer" parent="Margin/VBox"]
+layout_mode = 2
+mouse_filter = 2
+columns = 2
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 4
+
+[node name="CostKey" type="Label" parent="Margin/VBox/Grid"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.55, 0.55, 0.65, 1.0)
+theme_override_font_sizes/font_size = 9
+text = "COST"
+
+[node name="CostValue" type="Label" parent="Margin/VBox/Grid"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 9
+text = "0 bits"
+
+[node name="ReqKey" type="Label" parent="Margin/VBox/Grid"]
+layout_mode = 2
+mouse_filter = 2
+modulate = Color(0.55, 0.55, 0.65, 1.0)
+theme_override_font_sizes/font_size = 9
+text = "REQUIRES"
+
+[node name="ReqValue" type="Label" parent="Margin/VBox/Grid"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 9
+text = "0 bits"

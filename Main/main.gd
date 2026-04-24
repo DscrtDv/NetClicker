@@ -18,6 +18,7 @@ const _CONN_LINE_SCENE := preload("res://UI/HUD/ConnectionLine/network_overlay.t
 
 func _enter_tree() -> void:
     SignalBus.entity_purchase_requested.connect(_on_entity_purchase_requested)
+    SignalBus.tech_purchase_requested.connect(_on_tech_purchase_requested)
 
 func _ready() -> void:
     var conn_line      := _CONN_LINE_SCENE.instantiate()
@@ -93,4 +94,14 @@ func _spawn_entity(clicker_type: String, pos: Vector2) -> void:
     add_child(entity)
     entity.global_position = pos
     EventLog.log("+", "New %s added to the grid." % clicker_type)
+
+func _on_tech_purchase_requested(id: StringName, cost: int) -> void:
+    if click_counter.total_bits < cost:
+        return
+    click_counter.total_bits -= cost
+    click_counter.update_counter()
+    SignalBus.unlocked_techs.append(id)
+    SignalBus.tech_unlocked.emit(id)
+    var tech := TechRegistry.get_tech(id)
+    EventLog.log("+", "Tech unlocked: %s." % tech.display_name)
 

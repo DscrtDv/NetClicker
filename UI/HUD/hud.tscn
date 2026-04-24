@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://shop00000001" path="res://UI/HUD/Shop/shop.tscn" id="5_shop"]
 [ext_resource type="PackedScene" uid="uid://dw445fllq7iyy" path="res://UI/HUD/Terminal/terminal.tscn" id="6_terminal"]
 [ext_resource type="PackedScene" uid="uid://floatwind001" path="res://UI/FloatingWindow/floating_window.tscn" id="7_fw"]
+[ext_resource type="Script" uid="uid://techtreegdx1" path="res://UI/TechTree/tech_tree.gd" id="8_ttgd"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1293283919]
 
@@ -34,4 +35,5 @@ offset_bottom = 0.0
 anchors_preset = 2
 
 [node name="TechTree" parent="." unique_id=1899000001 instance=ExtResource("7_fw")]
+script = ExtResource("8_ttgd")
 title = "TECH TREE"
