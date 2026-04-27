@@ -35,3 +35,11 @@ var connection_source      : Node = null
 var outlined_network = null  # Network — set by main counter hover/pin
 var hovered_network  = null  # Network — set by cursor proximity to a connection line
 var unlocked_techs   : Array[StringName] = []
+
+const GRID_SPACING := 40.0
+
+func snap_to_grid(pos: Vector2) -> Vector2:
+    return Vector2(
+        round(pos.x / GRID_SPACING) * GRID_SPACING,
+        round(pos.y / GRID_SPACING) * GRID_SPACING
+    )

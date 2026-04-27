@@ -12,7 +12,6 @@ func init_prices() -> void:
 func _ready() -> void:
 	super._ready()
 	clicker_type   = "Computer"
-	min_separation = 32.0
 
 func _on_power_changed(on: bool) -> void:
 	if on:

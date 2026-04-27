@@ -21,6 +21,7 @@ func _ready() -> void:
 	tech_toggle.toggled.connect(_on_tech_toggled)
 	_tech_window.closed.connect(func(): tech_toggle.set_state_silent(false))
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 		if SignalBus.connect_mode_enabled:
@@ -30,17 +31,16 @@ func _unhandled_input(event: InputEvent) -> void:
 			disconnect_toggle.public_toggle()
 			get_viewport().set_input_as_handled()
 		return
-	if event is InputEventKey and event.pressed and not event.echo:
-		match event.keycode:
-			KEY_C:
-				connect_toggle.public_toggle()
-				get_viewport().set_input_as_handled()
-			KEY_X:
-				disconnect_toggle.public_toggle()
-				get_viewport().set_input_as_handled()
-			KEY_T:
-				tech_toggle.public_toggle()
-				get_viewport().set_input_as_handled()
+
+	if event.is_action_pressed("connect_mode"):
+		connect_toggle.public_toggle()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("disconnect_mode"):
+		disconnect_toggle.public_toggle()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("open_tech_tree"):
+		tech_toggle.public_toggle()
+		get_viewport().set_input_as_handled()
 
 func _clear_source() -> void:
 	if SignalBus.connection_source != null:

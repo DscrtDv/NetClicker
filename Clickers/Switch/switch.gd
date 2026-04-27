@@ -10,7 +10,6 @@ func _ready() -> void:
     super._ready()
     clicker_type    = "Switch"
     max_connections = 8
-    min_separation  = 32.0
 
 func blocks_traversal() -> bool:
     return not powered
