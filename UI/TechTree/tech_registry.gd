@@ -34,48 +34,46 @@ static func get_tech(id: StringName) -> TechData:
 # ---------------------------------------------------------------------------
 
 static func _make(
-	p_id               : StringName,
-	p_display_name     : String,
-	p_price            : int,
-	p_description      : String,
-	p_prerequisite_bits: int,
-	p_tree_position    : Vector2i,
-	p_parent_ids       : Array[StringName],
-	p_effect           : Dictionary
+	p_id            : StringName,
+	p_display_name  : String,
+	p_price         : int,
+	p_description   : String,
+	p_tree_position : Vector2i,
+	p_parent_ids    : Array[StringName],
+	p_effect        : Dictionary
 ) -> TechData:
-	var td              := TechData.new()
-	td.id               = p_id
-	td.display_name     = p_display_name
-	td.price            = p_price
-	td.description      = p_description
-	td.prerequisite_bits = p_prerequisite_bits
-	td.tree_position    = p_tree_position
-	td.parent_ids       = p_parent_ids
-	td.effect           = p_effect
+	var td             := TechData.new()
+	td.id              = p_id
+	td.display_name    = p_display_name
+	td.price           = p_price
+	td.description     = p_description
+	td.tree_position   = p_tree_position
+	td.parent_ids      = p_parent_ids
+	td.effect          = p_effect
 	return td
 
 static func _build_all() -> Array[TechData]:
 	return [
 		# --- Column 0: Root ---
 		_make(&"net_basics", "Network Basics", 50,
-			"Foundational optimizations that improve every network you run.",
-			0, Vector2i(0, 1), [], {}),
+			"Foundational optimizations that improve every network bps by 20%.",
+			Vector2i(0, 1), [], {"bps_global_pct": 20}),
 
 		# --- Column 1 ---
 		_make(&"hard_drives", "Hard Drives", 200,
-			"Additional storage capacity allows larger subnets. +2 max network size.",
-			100, Vector2i(1, 0), [&"net_basics"], {"max_network_bonus": 2}),
+			"Additional storage capacity allows larger subnets. +3 max network size.",
+			Vector2i(1, 0), [&"net_basics"], {"max_network_bonus": 3}),
 
 		_make(&"switch", "Switch", 200,
 			"Unlocks the Switch in the shop. Switches route traffic between multiple computers.",
-			100, Vector2i(1, 2), [&"net_basics"], {"unlock_switch": true}),
+			Vector2i(1, 2), [&"net_basics"], {"unlock_switch": true}),
 
 		# --- Column 2 ---
-		_make(&"computer_sockets", "Computer Sockets", 500,
+		_make(&"computer_sockets", "Computer Sockets", 400,
 			"Adds a third connection slot to every computer, increasing throughput potential.",
-			300, Vector2i(2, 0), [&"hard_drives"], {"computer_extra_slot": true}),
+			Vector2i(2, 0), [&"hard_drives"], {"computer_extra_slot": true}),
 
 		_make(&"underground_cables", "Underground Cables", 800,
 			"Shielded underground lines let switches connect across network boundaries, ignoring size limits.",
-			500, Vector2i(2, 2), [&"switch"], {"switch_cross_network": true}),
+			Vector2i(2, 2), [&"switch"], {"switch_cross_network": true}),
 	]

@@ -3,8 +3,6 @@ extends PanelContainer
 @onready var _name_label : Label = $Margin/VBox/NameLabel
 @onready var _desc_label : Label = $Margin/VBox/DescLabel
 @onready var _cost_value : Label = $Margin/VBox/Grid/CostValue
-@onready var _req_key    : Label = $Margin/VBox/Grid/ReqKey
-@onready var _req_value  : Label = $Margin/VBox/Grid/ReqValue
 
 var _anchor : Control = null
 
@@ -29,15 +27,6 @@ func _on_show(data: TechData, anchor: Control) -> void:
 		_cost_value.text     = "%d bits" % data.price
 		_cost_value.modulate = Color(0.20, 0.85, 0.60) \
 			if SignalBus.total_bits >= data.price \
-			else Color(0.85, 0.35, 0.30)
-
-	var has_req := data.prerequisite_bits > 0
-	_req_key.visible   = has_req
-	_req_value.visible = has_req
-	if has_req:
-		_req_value.text     = "%d bits" % data.prerequisite_bits
-		_req_value.modulate = Color(0.20, 0.85, 0.60) \
-			if SignalBus.total_bits >= data.prerequisite_bits \
 			else Color(0.85, 0.35, 0.30)
 
 	visible = true

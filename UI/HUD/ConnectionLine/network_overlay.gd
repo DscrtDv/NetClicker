@@ -1,7 +1,8 @@
 extends Node2D
 
 const GameColors = preload("res://Autoload/game_colors.gd")
-const WIDTH_PX        := 1.5
+const WIDTH_PX             := 1.5
+const WIDTH_UNDERGROUND_PX := 4.0
 const BRACKET_PAD    := 60.0
 const BRACKET_CORNER := 20.0
 const BRACKET_WIDTH  := 2.0
@@ -59,12 +60,19 @@ func _draw() -> void:
 			if drawn.has(key):
 				continue
 			drawn[key] = true
-			var net     = NetworkManager.get_network_for(clicker)
-			var pattern := net.get_pattern() if net != null else "none"
-			var col     : Color = GameColors.link_color_for(pattern)
-			draw_line(clicker.global_position,
-					  (other as Clicker).global_position,
-					  col, width, true)
+			if clicker is Switch and (other as Clicker) is Switch:
+				var uw := WIDTH_UNDERGROUND_PX / zoom
+				_draw_dashed_line(clicker.global_position,
+						(other as Clicker).global_position,
+						GameColors.LINK_UNDERGROUND,
+						uw, 8.0 / zoom, 6.0 / zoom)
+			else:
+				var net     = NetworkManager.get_network_for(clicker)
+				var pattern := net.get_pattern() if net != null else "none"
+				var col     : Color = GameColors.link_color_for(pattern)
+				draw_line(clicker.global_position,
+						  (other as Clicker).global_position,
+						  col, width, true)
 
 	# Preview line from selected source to mouse (world space)
 	if not SignalBus.connect_mode_enabled or SignalBus.connection_source == null:

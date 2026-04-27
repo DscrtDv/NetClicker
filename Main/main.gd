@@ -103,5 +103,11 @@ func _on_tech_purchase_requested(id: StringName, cost: int) -> void:
     SignalBus.unlocked_techs.append(id)
     SignalBus.tech_unlocked.emit(id)
     var tech := TechRegistry.get_tech(id)
+    if tech.effect.has("max_network_bonus"):
+        SignalBus.max_network_size += tech.effect["max_network_bonus"]
+    if tech.effect.has("computer_extra_slot"):
+        for node in get_tree().get_nodes_in_group("Clickers"):
+            if node is Computer:
+                node.max_connections += 1
     EventLog.log("+", "Tech unlocked: %s." % tech.display_name)
 

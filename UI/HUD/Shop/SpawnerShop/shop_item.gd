@@ -2,6 +2,7 @@ extends PanelContainer
 
 @export var clicker_type  : String      = "Computer"
 @export var entity_scene  : PackedScene
+@export var required_tech : StringName  = &""
 
 @onready var name_label  : Label  = $Margin/HBox/Info/NameLabel
 @onready var price_label : Label  = $Margin/HBox/Info/PriceLabel
@@ -23,6 +24,9 @@ func _ready() -> void:
 	SignalBus.bits_changed.connect(func(_b: int)        -> void: _update_affordability())
 	SignalBus.placement_started.connect(func(_t: String) -> void: buy_btn.disabled = true)
 	SignalBus.placement_ended.connect(func()             -> void: _update_affordability())
+	SignalBus.tech_unlocked.connect(_on_tech_unlocked)
+	if required_tech != &"" and not SignalBus.unlocked_techs.has(required_tech):
+		visible = false
 	_refresh()
 
 func _get_count() -> int:
@@ -41,6 +45,10 @@ func _refresh() -> void:
 
 func _update_affordability() -> void:
 	buy_btn.disabled = SignalBus.total_bits < _current_price()
+
+func _on_tech_unlocked(id: StringName) -> void:
+	if id == required_tech:
+		visible = true
 
 func _on_buy_btn_pressed() -> void:
 	SignalBus.entity_purchase_requested.emit(clicker_type, _current_price())

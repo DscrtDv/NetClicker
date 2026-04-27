@@ -36,11 +36,17 @@ func refresh_state() -> void:
 		return
 	if _data.id in SignalBus.unlocked_techs:
 		_set_state(State.UNLOCKED)
-	elif SignalBus.total_bits >= _data.price \
-			and SignalBus.total_bits >= _data.prerequisite_bits:
+	elif _parents_unlocked() \
+			and SignalBus.total_bits >= _data.price:
 		_set_state(State.AVAILABLE)
 	else:
 		_set_state(State.LOCKED)
+
+func _parents_unlocked() -> bool:
+	for pid in _data.parent_ids:
+		if pid not in SignalBus.unlocked_techs:
+			return false
+	return true
 
 func _set_state(s: State) -> void:
 	_state = s

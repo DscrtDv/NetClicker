@@ -5,7 +5,6 @@ extends Resource
 @export var display_name      : String
 @export var price             : int
 @export var description       : String
-@export var prerequisite_bits : int
 @export var tree_position     : Vector2i
 @export var parent_ids        : Array[StringName] = []
 @export var icon              : Texture2D

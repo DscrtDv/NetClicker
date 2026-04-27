@@ -12,8 +12,6 @@ var _tooltip        : PanelContainer  = null
 var _tip_name       : Label           = null
 var _tip_desc       : Label           = null
 var _tip_cost       : Label           = null
-var _tip_req_row    : HBoxContainer   = null
-var _tip_req        : Label           = null
 var _tip_anchor     : Control         = null
 
 func _ready() -> void:
@@ -121,9 +119,7 @@ func _build_tooltip() -> void:
 
 	vbox.add_child(_tip_separator())
 
-	_tip_cost    = _tip_row(vbox, "COST")
-	_tip_req_row = _tip_row_container(vbox, "REQUIRES")
-	_tip_req     = _tip_req_row.get_child(1)
+	_tip_cost = _tip_row(vbox, "COST")
 
 	SignalBus.tech_tooltip_show.connect(_on_tooltip_show)
 	SignalBus.tech_tooltip_hide.connect(_on_tooltip_hide)
@@ -170,14 +166,6 @@ func _on_tooltip_show(data: TechData, anchor: Control) -> void:
 		_tip_cost.text    = "%d bits" % data.price
 		_tip_cost.modulate = Color(0.20, 0.85, 0.60) \
 			if SignalBus.total_bits >= data.price \
-			else Color(0.85, 0.35, 0.30)
-
-	var has_req := data.prerequisite_bits > 0
-	_tip_req_row.visible = has_req
-	if has_req:
-		_tip_req.text    = "%d bits" % data.prerequisite_bits
-		_tip_req.modulate = Color(0.20, 0.85, 0.60) \
-			if SignalBus.total_bits >= data.prerequisite_bits \
 			else Color(0.85, 0.35, 0.30)
 
 	_tooltip.visible = true

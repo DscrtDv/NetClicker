@@ -128,10 +128,16 @@ func disconnect_from(other: Clicker) -> void:
 	connections.erase(other)
 	other.connections.erase(self)
 
+func _has_any_slot() -> bool:
+	return connections.size() < max_connections
+
+func _has_slot_for(_src: Clicker) -> bool:
+	return connections.size() < max_connections
+
 func _handle_connect_click() -> void:
 	var src = SignalBus.connection_source
 	if src == null:
-		if connections.size() < max_connections:
+		if _has_any_slot():
 			SignalBus.connection_source = self
 			SignalBus.connection_source_selected.emit(self)
 		return
@@ -169,13 +175,18 @@ func _handle_disconnect_click() -> void:
 	SignalBus.connection_formed.emit(src, self)
 
 func _can_connect_to(src: Clicker) -> bool:
-	if connections.size() >= max_connections:
+	if not _has_slot_for(src):
+		return false
+	if not src._has_slot_for(self):
 		return false
 	if src in connections:
 		return false
 	var net_self = NetworkManager.get_network_for(self)
 	var net_src  = NetworkManager.get_network_for(src)
 	if net_self == null or net_src == null or net_self == net_src:
+		return true
+	if self is Switch and src is Switch \
+			and SignalBus.unlocked_techs.has(&"switch_cross_network"):
 		return true
 	if net_self.is_main or net_src.is_main:
 		var other : Network = net_src if net_self.is_main else net_self

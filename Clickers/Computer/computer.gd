@@ -13,6 +13,8 @@ func _ready() -> void:
 	super._ready()
 	clicker_type   = "Computer"
 	min_separation = 32.0
+	if SignalBus.unlocked_techs.has(&"computer_extra_slot"):
+		max_connections += 1
 
 func _on_power_changed(on: bool) -> void:
 	if on:
