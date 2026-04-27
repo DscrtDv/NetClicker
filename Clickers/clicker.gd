@@ -2,6 +2,7 @@ extends LODObject
 class_name Clicker
 
 const GameColors := preload("res://Autoload/game_colors.gd")
+const PLACEMENT_GHOST_SCENE = preload("res://UI/Placement/placement_ghost.tscn")
 
 @onready var power_indicator: ColorRect = $DetailView/PowerIndicator
 @onready var proxy: Polygon2D = $ProxyView/Polygon2D
@@ -22,6 +23,8 @@ var mouse_over := false
 var grabbing := false
 var powered := false
 var network_name := "Main Network"
+var drag_preview: Node2D = null
+var drag_origin := Vector2.ZERO
 
 var hover_modulate := Color(1.3, 1.3, 1.3)
 var normal_modulate := Color(1.0, 1.0, 1.0)
@@ -29,7 +32,6 @@ var normal_modulate := Color(1.0, 1.0, 1.0)
 const TINT_SOURCE := Color(0.30, 1.10, 0.95)
 const TINT_VALID := Color(0.40, 1.10, 0.50)
 const TINT_INVALID := Color(1.10, 0.40, 0.40)
-
 
 func _ready() -> void:
 	super._ready()
@@ -46,6 +48,9 @@ func _ready() -> void:
 	SignalBus.connection_cancelled.connect(_on_connection_cleared)
 	SignalBus.connection_formed.connect(_on_connection_formed)
 
+func _process(_delta: float) -> void:
+	if grabbing:
+		_update_drag_preview()
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("left_click") and mouse_over:
@@ -65,25 +70,32 @@ func _input(event: InputEvent) -> void:
 				return
 
 			grabbing = true
+			drag_origin = global_position
 			SignalBus.entity_grabbed = self
 			bracket.on_grab()
 			SignalBus.tooltip_hide.emit()
+			_show_drag_preview()
 
-		var snapped_pos := SignalBus.snap_to_grid(get_global_mouse_position())
-		if not _is_grid_slot_blocked(snapped_pos):
-			global_position = snapped_pos
+		_update_drag_preview()
+		var tw = create_tween()
+		tw.tween_property(self, "modulate:a", 0.35, 0.1)
 
 	if Input.is_action_just_released("left_click"):
 		if grabbing:
 			grabbing = false
 			SignalBus.entity_grabbed = null
 
-			var snapped_pos := SignalBus.snap_to_grid(get_global_mouse_position())
+			var snapped_pos = SignalBus.snap_to_grid(get_global_mouse_position())
 			if not _is_grid_slot_blocked(snapped_pos):
 				global_position = snapped_pos
+			else:
+				global_position = drag_origin
 
-			mouse_over = global_position.distance_to(get_global_mouse_position())
+			_clear_drag_preview()
 			bracket.on_release(mouse_over)
+
+			var tw = create_tween()
+			tw.tween_property(self, "modulate:a", 1.0, 0.1)
 
 			if mouse_over:
 				SignalBus.tooltip_show.emit(clicker_type, network_name, powered, get_bit_ps(), self)
@@ -106,7 +118,6 @@ func _input(event: InputEvent) -> void:
 		on_power_changed(powered)
 		SignalBus.tooltip_show.emit(clicker_type, network_name, powered, get_bit_ps(), self)
 
-
 func _is_grid_slot_blocked(pos: Vector2) -> bool:
 	for node in get_tree().get_nodes_in_group("Clickers"):
 		if node == self:
@@ -114,6 +125,36 @@ func _is_grid_slot_blocked(pos: Vector2) -> bool:
 		if node.global_position == pos:
 			return true
 	return false
+
+# --- Ghost Preview ---
+
+func _show_drag_preview() -> void:
+	if drag_preview != null:
+		return
+
+	drag_preview = PLACEMENT_GHOST_SCENE.instantiate()
+	drag_preview.setup(clicker_type)
+	get_parent().add_child(drag_preview)
+	drag_preview.global_position = global_position
+
+
+func _update_drag_preview() -> void:
+	if drag_preview == null:
+		return
+
+	var snapped_pos = SignalBus.snap_to_grid(get_global_mouse_position())
+	drag_preview.global_position = snapped_pos
+
+	if _is_grid_slot_blocked(snapped_pos):
+		drag_preview.modulate = Color(1.0, 0.35, 0.35, 0.45)
+	else:
+		drag_preview.modulate = Color(1.0, 1.0, 1.0, 0.55)
+
+
+func _clear_drag_preview() -> void:
+	if drag_preview != null:
+		drag_preview.queue_free()
+		drag_preview = null
 
 # --- Virtuals ---
 
@@ -240,6 +281,8 @@ func _on_mouse_entered() -> void:
 	mouse_over = true
 	if not grabbing:
 		bracket.on_hover()
+	if grabbing:
+		return
 
 	var tint := hover_modulate
 
@@ -263,6 +306,8 @@ func _on_mouse_exited() -> void:
 	if not grabbing:
 		mouse_over = false
 		bracket.on_exit()
+	if grabbing:
+		return
 
 	var tint := normal_modulate
 	if SignalBus.connect_mode_enabled and SignalBus.connection_source == self:
